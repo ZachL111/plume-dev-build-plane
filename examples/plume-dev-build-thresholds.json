@@ -1,0 +1,17 @@
+{
+  "repo": "plume-dev-build-plane",
+  "thresholds": {
+    "signal": 4,
+    "slack": 1,
+    "confidence": 2,
+    "drag": 2,
+    "ship": 163,
+    "watch": 106
+  },
+  "terms": [
+    "change width",
+    "diagnostic quality",
+    "review cost",
+    "safe rewrite"
+  ]
+}

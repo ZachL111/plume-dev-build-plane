@@ -1,0 +1,32 @@
+{
+  "index": 269,
+  "phase": 2,
+  "batch": 30,
+  "name": "plume-dev-build-plane",
+  "planned_name": "plume-dev-build-plane",
+  "language": "Rust",
+  "category": "Developer tools",
+  "goal": "Build a Rust toolkit that studies build behavior through negative fixtures, with human-readable error snapshots and no production deployment claims.",
+  "repository_url": "https://github.com/ZachL111/plume-dev-build-plane",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 163,
+    "risk_penalty": 4,
+    "latency_penalty": 4,
+    "weight_bonus": 4,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}

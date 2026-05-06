@@ -1,69 +1,40 @@
 # plume-dev-build-plane
 
-`plume-dev-build-plane` treats developer tools as a local verification problem. The Rust implementation is intentionally narrow, but the fixtures and notes make the behavior explicit.
+`plume-dev-build-plane` is a compact Rust repository for developer tools, centered on this goal: Build a Rust toolkit that studies build behavior through negative fixtures, with human-readable error snapshots and no production deployment claims.
 
-## Plume Dev Build Plane Checkpoints
+## Why It Exists
 
-Treat the compact fixture as the contract and the extended examples as a scratchpad. The code should stay boring enough that a change in behavior is obvious from the test output.
+I want this repository to be useful as a quick reading exercise: fixtures first, implementation second, verifier last.
 
-## What This Is For
+## Plume Dev Build Plane Review Notes
 
-I use this kind of project to make a rule visible before adding more machinery around it. The important part here is not the size of the codebase. It is that the input signals, scoring rule, fixture data, and expected output can all be checked in one sitting.
+`edge` and `recovery` are the cases worth reading first. They show the optimistic and cautious ends of the fixture.
 
-## Project Layout
+## Features
 
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-- `Cargo.toml`: Rust package metadata
-
-## Useful Pieces
-
-- Includes extended examples for safe defaults, including `surge` and `degraded`.
-- Documents repeatable output tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-- Adds a repository audit script that checks structure before running the language verifier.
+- `fixtures/domain_review.csv` adds cases for change width and diagnostic quality.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/plume-dev-build-walkthrough.md` walks through the case spread.
+- The Rust code includes a review path for `review cost` and `safe rewrite`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
 ## Architecture Notes
 
-The core is a scoring model over demand, capacity, latency, risk, and weight. That keeps code shape, diagnostics, and safe defaults in one explicit decision path. The threshold is 163, with risk penalty 4, latency penalty 4, and weight bonus 4. The Rust code keeps ownership and data movement plain, which makes the tests useful for checking both behavior and API shape.
+The repository has two validation layers: the original compact policy fixture and the domain review fixture. They are separate so one can change without hiding failures in the other.
 
-## Tooling
+The Rust implementation avoids hidden state so fixture changes are easy to reason about.
 
-Install Rust and run the commands from the repository root. The project does not need credentials or a hosted service.
-
-## Case Study
-
-`examples/extended_cases.csv` adds six named cases. I kept the names plain so failures are easy to read in a terminal: baseline, pressure, surge, degraded, recovery, and boundary.
-
-## Local Workflow
+## Usage
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Tests
 
-## Quality Gate
+That command is also the regression path. It verifies the domain cases and catches mismatches between the CSV, metadata, and code.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Limitations And Roadmap
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Expansion Ideas
-
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add one more developer tools fixture that focuses on a malformed or borderline input.
-
-## Scope
-
-This code is local-first. It makes no claim about deployed usage and avoids credentials, hosted state, and environment-specific setup.
+The repository is intentionally scoped to local checks. I would expand it by adding adversarial fixtures before adding features.

@@ -59,3 +59,5 @@ foreach ($pathPattern in $knownPaths) {
 }
 
 cargo test
+
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-plume-dev-build-detail.ps1

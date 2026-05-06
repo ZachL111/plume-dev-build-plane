@@ -1,0 +1,73 @@
+{
+  "repo": "plume-dev-build-plane",
+  "language": "Rust",
+  "category": "Developer tools",
+  "goal": "Build a Rust toolkit that studies build behavior through negative fixtures, with human-readable error snapshots and no production deployment claims.",
+  "review_model": {
+    "terms": [
+      "change width",
+      "diagnostic quality",
+      "review cost",
+      "safe rewrite"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "change width",
+      "signal": 62,
+      "slack": 48,
+      "drag": 14,
+      "confidence": 54,
+      "score": 184,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "diagnostic quality",
+      "signal": 81,
+      "slack": 34,
+      "drag": 27,
+      "confidence": 72,
+      "score": 187,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "review cost",
+      "signal": 76,
+      "slack": 47,
+      "drag": 27,
+      "confidence": 89,
+      "score": 207,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "safe rewrite",
+      "signal": 57,
+      "slack": 43,
+      "drag": 26,
+      "confidence": 93,
+      "score": 172,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "change width",
+      "signal": 63,
+      "slack": 43,
+      "drag": 17,
+      "confidence": 82,
+      "score": 200,
+      "lane": "ship"
+    }
+  ]
+}
